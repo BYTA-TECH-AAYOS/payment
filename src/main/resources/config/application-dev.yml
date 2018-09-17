@@ -24,7 +24,7 @@ eureka:
         prefer-ip-address: true
     client:
         service-url:
-            defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+            defaultZone: http://104.196.121.188:8761/eureka/
 
 spring:
     profiles:
@@ -50,7 +50,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/payment?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password:
+        password: root
         hikari:
             auto-commit: false
             data-source-properties:
@@ -74,9 +74,18 @@ spring:
             hibernate.cache.hazelcast.use_lite_member: true
     data:
         elasticsearch:
+            cluster-name: ayoos
+            cluster-nodes: 104.196.49.233:9300
             properties:
                 path:
-                    home: target/elasticsearch
+                    logs: target/elasticsearch/log
+                    data: target/elasticsearch/data
+                transport:
+                    tcp:
+                       connect_timeout: 12000s
+        jest:
+             readTimeout: 10000
+             uri: http://104.196.49.233:9400 
     liquibase:
         contexts: dev
     mail:

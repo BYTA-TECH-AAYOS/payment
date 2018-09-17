@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity TransactionInfo.
+    -->
+    <changeSet id="20180912160223-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="amount_id"
+                                 baseTableName="transaction_info"
+                                 constraintName="fk_transaction_info_amount_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="amount"/>
+
+        <addForeignKeyConstraint baseColumnNames="payee_id"
+                                 baseTableName="transaction_info"
+                                 constraintName="fk_transaction_info_payee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="payee"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,92 @@
+entity Payment{
+	paymentId String ,
+	createTime Instant,
+	updateTime Instant,
+	state String,
+	intent String,
+	paymentGatewayProvider String	
+}
+entity Payer{
+	paymentMethod PaymentMethod,
+	status String,
+	userId String,
+	payerId String
+}
+
+enum PaymentMethod{
+	CASH,PAYPAL,CREDIT_CARD
+}
+entity FundingInstrument{
+	
+}
+entity Amount{
+	total Double,
+	currency String
+}
+entity AmountDetails{
+	subtotal Double,
+	tax Double,
+	shipping Double,
+	handlingFee Double,
+	shippingDiscount Double,
+	insurance Double,
+	otherFee Double
+}
+entity Payee{
+	userId String,
+	merchandId String,
+	email String
+}
+entity TransactionInfo{
+	description String,
+	noteToPayee String,
+	invoiceNumber String
+}
+entity RelatedTransactions{
+	transactionType TransactionType,
+	intentId String,
+	paymentMode String,
+	state String,
+	saleReasonCode String,
+	paymentId String,
+	receiptId String,
+	createTime Instant,
+	updateTime Instant,
+	authValidUntil Instant,
+	refundReason String,
+	orderPendingReason String,
+	refundSaleId String,
+	description String
+}
+enum TransactionType{
+	SALE,AUTHORIZATION,ORDER,REFUND,CAPTURE
+}
+entity CreditCard{
+	number String,
+	type String,
+	expireMonth Integer,
+	expireYear Integer,
+	cvv2 Integer	
+}
+
+relationship OneToOne{
+	Payment{payer} to  Payer,
+	FundingInstrument{creditCard} to CreditCard,
+	TransactionInfo{amount} to Amount,
+	TransactionInfo{payee} to Payee,
+	Amount{details} to AmountDetails,
+	Payment{transaction} to TransactionInfo
+}
+relationship OneToMany{
+	TransactionInfo{transactionDetails} to RelatedTransactions,
+	Payer{fundingInstruments} to FundingInstrument
+}
+
+service all with serviceImpl
+dto all with mapstruct
+paginate all with pagination
+
+
+
+
+

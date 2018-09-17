@@ -39,10 +39,10 @@ eureka:
             git-branch: ${git.branch:}
 ribbon:
     eureka:
-        enabled: true
+        enabled: false
 feign:
     hystrix:
-        enabled: true
+        enabled: false
 #    client:
 #        config:
 #            default:
@@ -119,13 +119,21 @@ spring:
 # export SECURITY_OAUTH2_CLIENT_CLIENT_SECRET="38561a05"
 # ===================================================================
 security:
-    oauth2:
+       oauth2:
         client:
-            client-id: internal
-            client-secret: internal
+           access-token-uri: https://kcnew.bytatech.com:8443/auth/realms/ayoos/protocol/openid-connect/token
+           user-authorization-uri: https://kcnew.bytatech.com:8443/auth/realms/ayoos/protocol/openid-connect/auth
+           client-id: account
+           client-secret: 362c5924-9d6c-4f9b-a418-369dcba56b1a
+           scope: openid profile email
         resource:
-            user-info-uri: http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/userinfo
-
+           user-info-uri: https://kcnew.bytatech.com:8443/auth/realms/ayoos/protocol/openid-connect/userinfo
+        paypal:
+           access-token-uri: https://api.sandbox.paypal.com/v1/oauth2/token   
+           client-id: AT-ve5Q8n8igYEs1o_kWoVNY2DLKCam50aILd3f61qhuweZdvAr-iPDw83vNWhLWpcITvR-rWsOmZDTt
+           client-secret: EA-uO36KmhIH6xdAWbRIuFKuONR2A9TAL3y8ZoOy3i9t6yZBtusW0RPZCreVlvf4rzNGqb4_vdl1Li2x
+           grantType: client_credentials
+        
 server:
     servlet:
         session:
